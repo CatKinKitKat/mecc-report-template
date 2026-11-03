@@ -1,0 +1,20 @@
+# Institutional reference PDFs: the IPBeja 2024 academic-work norms and LaTeX guidance, kept locally for consultation.
+normas_docs_academicos.pdf
+normas_ficheiro_latex.pdf
+normas_trab_academicos.pdf
+
+*.bbl
+*.bcf
+*.blg
+*.fdb_latexmk
+*.fls
+*.lof
+*.log
+*.lot
+*.nav
+*.out
+*.run.xml
+*.snm
+*.synctex.gz
+*.toc
+*.xdv

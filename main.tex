@@ -2,74 +2,128 @@
 % !TeX encoding = UTF-8
 % !TeX spellcheck = pt_PT
 % !TeX root = main
-\documentclass[10pt,a4paper,final]{report}
+% IPBeja academic-work template — norms revised 2024.
+% Compile with XeLaTeX and Biber (latexmk -xelatex main.tex).
+\documentclass[12pt,a4paper,oneside,openright]{book}
+
+% Language and fonts: Garamond is the institutional body-text requirement.
 \usepackage[portuguese]{babel}
-\usepackage[utf8x]{inputenc}
-\usepackage[T1]{fontenc}
-\usepackage{newtxtext,newtxmath} %TimesNewRoman
-\usepackage[backend=biber,citestyle=numeric,sorting=none,style=ieee]{biblatex}
-\usepackage[a4paper,top=3cm,bottom=2cm,left=3cm,right=3cm,marginparwidth=2cm]{geometry}
-\usepackage{amsmath}
+\usepackage{fontspec}
+\setmainfont[Path=fonts/,Extension=.otf,UprightFont=texgyrepagella-regular,BoldFont=texgyrepagella-bold,ItalicFont=texgyrepagella-italic,BoldItalicFont=texgyrepagella-bolditalic]{texgyrepagella-regular}
+\usepackage{microtype}
+
+% Normative page layout: 2 cm left/right and 3 cm top/bottom.
+\usepackage[a4paper,top=3cm,bottom=3cm,left=2cm,right=2cm]{geometry}
+\usepackage{setspace}
+\onehalfspacing
+\setlength{\parindent}{1.27cm}
+\setlength{\parskip}{0pt}
+
+% Figures, tables, code and citations.
 \usepackage{graphicx}
-\usepackage[svgnames]{xcolor}
+\usepackage{booktabs,tabularx}
 \usepackage{listings}
-\usepackage[colorinlistoftodos]{todonotes}
-\usepackage[colorlinks=true,allcolors=ipbbrown]{hyperref}
-\usepackage{adjustbox}
-\usepackage[pagestyles]{titlesec}
-\usepackage[final]{pdfpages}
-\usepackage{placeins}
-
+\lstset{basicstyle=\ttfamily\small,breaklines=true,columns=fullflexible}
+\usepackage{csquotes}
+\usepackage[backend=biber,style=apa,sorting=nyt]{biblatex}
+\DeclareLanguageMapping{portuguese}{portuguese-apa}
 \addbibresource{main.bib}
+\usepackage[hidelinks]{hyperref}
 
-\titleformat{\chapter}[display]{\normalfont\bfseries}{}{0pt}{\Huge}
-\newpagestyle{mystyle}
-{\sethead[\thepage][][\chaptertitle]{}{}{\thepage}}
-\pagestyle{mystyle}
+% Page numbers: lower right, 8 pt; Roman front matter, Arabic main matter.
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyfoot[R]{\fontsize{8}{10}\selectfont\thepage}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt}
+\fancypagestyle{plain}{\fancyhf{}\fancyfoot[R]{\fontsize{8}{10}\selectfont\thepage}\renewcommand{\headrulewidth}{0pt}}
 
-% school colours
-\definecolor{ipbgreen}{RGB}{166,204,59}
-\definecolor{ipbbrown}{RGB}{153,80,42}
-\definecolor{estigred}{RGB}{150,0,24}
-
-\title{
-  \includegraphics[scale=0.5]{resources/ipbeja_logo.png}\\[0.5cm]
-  Exemplo de Relatório
-} % Doc name
-\author{Gonçalo Amaro -- 17440} % Doc's author/s
-\date{15 de Fevereiro, 2022} % Doc date
-
-\def\blankpage{%
-      \clearpage%
-      \thispagestyle{empty}%
-      \addtocounter{page}{-1}%
-      \null%
-      \clearpage
-}
-
+% Fill in the project-specific fields below. Keep cover free of decorative imagery.
+\newcommand{\IPBInstitution}{Instituto Politécnico de Beja}
+\newcommand{\IPBSchool}{Escola Superior de Tecnologia e Gestão}
+\newcommand{\IPBProgramme}{[Ciclo de estudos]}
+\newcommand{\IPBCourse}{[Unidade curricular]}
+\newcommand{\IPBTitle}{[Título do trabalho]}
+\newcommand{\IPBSubtitle}{[Subtítulo opcional]}
+\newcommand{\IPBAuthor}{[Nome completo do/a estudante]}
+\newcommand{\IPBSupervisor}{[Orientador/a, se aplicável]}
+\newcommand{\IPBYear}{\the\year}
 
 \begin{document}
+\frontmatter
 
-\maketitle
+% Institutional cover: replace fields; place is always Beja.
+\begin{titlepage}
+  \centering
+  {\Large\IPBInstitution\par}
+  \vspace{1cm}
+  {\large\IPBSchool\par}
+  {\large\IPBProgramme\par}
+  \vspace{1cm}
+  {\large\IPBCourse\par}
+  \vfill
+  {\LARGE\bfseries\IPBTitle\par}
+  \vspace{0.5cm}
+  {\large\IPBSubtitle\par}
+  \vfill
+  {\large\IPBAuthor\par}
+  \vspace{0.5cm}
+  {\large Beja\par}
+  {\large\IPBYear\par}
+\end{titlepage}
+\thispagestyle{empty}
+\cleardoublepage
 
-\blankpage{}
+% Replace or remove optional front-matter sections as appropriate.
+\chapter*{Folha de rosto}
+\addcontentsline{toc}{chapter}{Folha de rosto}
+\IPBTitle\par
+\IPBSubtitle\par
+\IPBAuthor\par
+\IPBCourse\par
+\IPBSchool\par
+\IPBInstitution\par
+\IPBSupervisor\par
+\vspace{1em}
+Trabalho realizado no âmbito da unidade curricular de \IPBCourse.
+\cleardoublepage
 
-{
-  \hypersetup{linkcolor=black}
-  \tableofcontents
-}
+\chapter*{Resumo}
+\addcontentsline{toc}{chapter}{Resumo}
+[Escrever um resumo com 100 a 250 palavras.]
+\par\medskip\noindent\textbf{Palavras-chave:} [Três a seis palavras-chave; separadas por ponto e vírgula]
+\cleardoublepage
 
-% \newpage
-%
-% {
-%   \hypersetup{linkcolor=black}
-%   \listoffigures
-%   \listoftables
-% }
+\chapter*{Abstract}
+\addcontentsline{toc}{chapter}{Abstract}
+[Write an English abstract of 100 to 250 words.]
+\par\medskip\noindent\textbf{Keywords:} [Three to six keywords; separated by semicolons]
+\cleardoublepage
 
-\newpage
+\tableofcontents
+\listoffigures
+\listoftables
+% Add \lstlistoflistings only when the document contains listings.
+\cleardoublepage
 
-\input{pages/sample.tex}
-\input{pages/webgraphy.tex}
+\mainmatter
+% Chapters start on odd-numbered pages (openright); replace sample content.
+\chapter{Introdução}
+[Contextualização, problema, objetivos e organização do trabalho.]
 
+\chapter{Desenvolvimento}
+\section{Enquadramento}
+[Desenvolver o tema e citar fontes no formato autor-data, por exemplo \parencite{ipbeja_normas_trabalhos_2024}.]
+\section{Metodologia}
+[Descrever métodos, materiais e procedimentos.]
+\section{Resultados e discussão}
+[Apresentar resultados, tabelas e figuras devidamente identificadas e citadas no texto.]
+
+\chapter{Conclusão}
+[Resumir conclusões, limitações e trabalho futuro.]
+
+\backmatter
+\printbibliography[heading=bibintoc,title={Referências Bibliográficas}]
+% Optional: add glossary, appendices and annexes only when relevant.
 \end{document}
