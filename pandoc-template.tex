@@ -1,0 +1,149 @@
+% !TeX program = XeLaTeX
+% !TeX encoding = UTF-8
+% !TeX spellcheck = pt_PT
+% !TeX root = main
+% Pandoc-facing copy of the IPBeja report template. Do not edit generated report.tex.
+\documentclass[12pt,a4paper,oneside,openright]{book}
+
+% Language and fonts: Garamond is the institutional body-text requirement.
+\usepackage[portuguese]{babel}
+\usepackage{fontspec}
+\setmainfont[Path=fonts/,Extension=.otf,UprightFont=texgyrepagella-regular,BoldFont=texgyrepagella-bold,ItalicFont=texgyrepagella-italic,BoldItalicFont=texgyrepagella-bolditalic]{texgyrepagella-regular}
+\usepackage{microtype}
+
+% Normative page layout: 2 cm left/right and 3 cm top/bottom.
+\usepackage[a4paper,top=3cm,bottom=3cm,left=2cm,right=2cm]{geometry}
+\usepackage{setspace}
+\onehalfspacing
+\setlength{\parindent}{1.27cm}
+\setlength{\parskip}{0pt}
+
+% Figures, tables, code and citations.
+\usepackage{graphicx}
+\usepackage{booktabs,tabularx}
+\usepackage{listings}
+\lstset{basicstyle=\ttfamily\small,breaklines=true,columns=fullflexible}
+\usepackage{csquotes}
+\usepackage[backend=biber,style=apa,sorting=nyt]{biblatex}
+\DeclareLanguageMapping{portuguese}{portuguese-apa}
+\addbibresource{main.bib}
+\usepackage[hidelinks]{hyperref}
+
+% Page numbers: lower right, 8 pt; Roman front matter, Arabic main matter.
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyfoot[R]{\fontsize{8}{10}\selectfont\thepage}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt}
+\fancypagestyle{plain}{\fancyhf{}\fancyfoot[R]{\fontsize{8}{10}\selectfont\thepage}\renewcommand{\headrulewidth}{0pt}}
+
+% Pandoc LaTeX support definitions (minimal baseline).
+\usepackage{amsmath,amssymb}
+\usepackage{longtable,array,calc}
+\usepackage{fancyvrb}
+\usepackage{soul}
+
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}%
+  \setlength{\parskip}{0pt}%
+}
+
+\providecommand{\passthrough}[1]{#1}
+
+% Metadata variables wired from Markdown front matter.
+\newcommand{\IPBInstitution}{$if(institution)$$institution$$else$Instituto Politécnico de Beja$endif$}
+\newcommand{\IPBSchool}{$if(school)$$school$$else$Escola Superior de Tecnologia e Gestão$endif$}
+\newcommand{\IPBProgramme}{$degree$}
+\newcommand{\IPBCourse}{$course$}
+\newcommand{\IPBTitle}{$title$}
+\newcommand{\IPBSubtitle}{$subtitle$}
+\newcommand{\IPBAuthor}{$for(author)$$author$$sep$; $endfor$}
+\newcommand{\IPBSupervisor}{$supervisor$}
+\newcommand{\IPBYear}{$if(year)$$year$$else$\the\year$endif$}
+
+\begin{document}
+\frontmatter
+
+% Institutional cover: replace fields; place is always Beja.
+\begin{titlepage}
+  \centering
+  \includegraphics[width=0.24\textwidth]{resources/ipbeja_logo.png}\par
+  \vspace{1cm}
+  {\Large\IPBInstitution\par}
+  \vspace{1cm}
+  {\large\IPBSchool\par}
+  {\large\IPBProgramme\par}
+  \vspace{1cm}
+  {\large\IPBCourse\par}
+  \vfill
+  {\LARGE\bfseries\IPBTitle\par}
+  \vspace{0.5cm}
+  {\large\IPBSubtitle\par}
+  \vfill
+  {\large\IPBAuthor\par}
+  \vspace{0.5cm}
+  {\large Beja\par}
+  {\large\IPBYear\par}
+\end{titlepage}
+\thispagestyle{empty}
+\cleardoublepage
+
+% Replace or remove optional front-matter sections as appropriate.
+\chapter*{Folha de rosto}
+\addcontentsline{toc}{chapter}{Folha de rosto}
+\IPBTitle\par
+\IPBSubtitle\par
+\IPBAuthor\par
+\IPBCourse\par
+\IPBSchool\par
+\IPBInstitution\par
+\IPBSupervisor\par
+\vspace{1em}
+Trabalho realizado no âmbito da unidade curricular de \IPBCourse.
+\cleardoublepage
+
+$if(abstract-pt)$
+\chapter*{Resumo}
+\addcontentsline{toc}{chapter}{Resumo}
+
+$abstract-pt$
+
+$if(keywords-pt)$
+\par\medskip\noindent
+\textbf{Palavras-chave:}
+$for(keywords-pt)$$keywords-pt$$sep$; $endfor$
+$endif$
+
+\cleardoublepage
+$endif$
+
+$if(abstract-en)$
+\chapter*{Abstract}
+\addcontentsline{toc}{chapter}{Abstract}
+
+$abstract-en$
+
+$if(keywords-en)$
+\par\medskip\noindent
+\textbf{Keywords:}
+$for(keywords-en)$$keywords-en$$sep$; $endfor$
+$endif$
+
+\cleardoublepage
+$endif$
+
+\tableofcontents
+\listoffigures
+\listoftables
+% Add \lstlistoflistings only when the document contains listings.
+\cleardoublepage
+
+\mainmatter
+
+$body$
+
+\backmatter
+\printbibliography[heading=bibintoc,title={Referências Bibliográficas}]
+% Optional: add glossary, appendices and annexes only when relevant.
+\end{document}
