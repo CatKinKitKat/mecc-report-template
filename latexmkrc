@@ -1,4 +1,4 @@
 #!/usr/bin/env perl
 $ENV{'TZ'}='Europe/Lisbon';
-$biber = 'biber %O %S';
+$biber = '/opt/homebrew/bin/biber %O %S';
 
