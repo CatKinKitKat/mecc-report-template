@@ -26,6 +26,10 @@ cp -r "$REPO_ROOT/fonts" "$WORKDIR/"
 cp -r "$REPO_ROOT/resources" "$WORKDIR/"
 cp "$REPO_ROOT/main.bib" "$WORKDIR/" 2>/dev/null || true
 
+# Copy images next to the input Markdown so relative figure refs resolve.
+INPUT_DIR="$(dirname "$INPUT_MD")"
+find "$INPUT_DIR" -maxdepth 1 -type f \( -iname '*.png' -o -iname '*.jpg' -o -iname '*.jpeg' -o -iname '*.svg' -o -iname '*.pdf' \) -exec cp {} "$WORKDIR/" \;
+
 BASENAME="$(basename "${OUTPUT_PDF%.pdf}")"
 TEX_FILE="$WORKDIR/$BASENAME.tex"
 
