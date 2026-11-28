@@ -45,7 +45,14 @@ pandoc "$INPUT_MD" \
   --biblatex \
   --output="$TEX_FILE"
 
-echo "Compiling PDF with XeLaTeX ..."
+  # Pandoc disables the table counter for longtables; restore it so captions
+  # appear in \listoftables.
+  if command -v sed >/dev/null 2>&1; then
+  sed -i '' 's/\\LTcaptype{none}/\\LTcaptype{table}/g' "$TEX_FILE" 2>/dev/null || \
+  sed -i 's/\\LTcaptype{none}/\\LTcaptype{table}/g' "$TEX_FILE"
+  fi
+
+  echo "Compiling PDF with XeLaTeX ..."
 cd "$WORKDIR"
 latexmk -xelatex -interaction=nonstopmode -halt-on-error \
   "$BASENAME.tex"
