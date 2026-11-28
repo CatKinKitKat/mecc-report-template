@@ -30,7 +30,7 @@ latexmk -xelatex main.tex
 
 Check each course's instructions before submission; the norms permit requirements specific to a curricular unit. Cover and title-page line spacing/layout can need local adjustment to match the official visual model.
 
-## Markdown → PDF with Pandoc
+## Markdown -> PDF with Pandoc
 
 The repo includes `pandoc-template.tex`, a Pandoc-facing copy of the template with all cover/front-matter variables wired to Markdown front matter and a `$body$` insertion point for the Markdown content. Use it from the repository root so relative paths (`fonts/`, `resources/`, `main.bib`) resolve.
 
