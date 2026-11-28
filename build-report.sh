@@ -25,9 +25,10 @@ cp "$REPO_ROOT/latexmkrc" "$WORKDIR/"
 cp -r "$REPO_ROOT/fonts" "$WORKDIR/"
 cp -r "$REPO_ROOT/resources" "$WORKDIR/"
 cp "$REPO_ROOT/main.bib" "$WORKDIR/" 2>/dev/null || true
-
 # Copy images next to the input Markdown so relative figure refs resolve.
 INPUT_DIR="$(dirname "$INPUT_MD")"
+# A bibliography in the input directory overrides the shared template one.
+find "$INPUT_DIR" -maxdepth 1 -type f -iname '*.bib' -exec cp {} "$WORKDIR/" \;
 find "$INPUT_DIR" -maxdepth 1 -type f \( -iname '*.png' -o -iname '*.jpg' -o -iname '*.jpeg' -o -iname '*.svg' -o -iname '*.pdf' \) -exec cp {} "$WORKDIR/" \;
 
 BASENAME="$(basename "${OUTPUT_PDF%.pdf}")"
